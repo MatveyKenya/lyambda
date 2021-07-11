@@ -1,0 +1,20 @@
+package hardWorker;
+
+public class Worker {
+
+    private OnTaskDoneListener callback;
+    private OnTaskErrorListener errorCallback;
+
+    public Worker(OnTaskDoneListener callback, OnTaskErrorListener errorCallback) {
+        this.callback = callback;
+        this.errorCallback = errorCallback;
+    }
+
+    public void start() {
+        for (int i = 0; i < 100; i++) {
+            if (errorCallback.onError(i)) callback.onDone("Task " + i + " is not done. Error!!!");
+            else callback.onDone("Task " + i + " is done");
+        }
+    }
+
+}
